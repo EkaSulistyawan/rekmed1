@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width = device-width, initial-scale= 1">
+	<title>Welcome</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+</head>
+<body>
+	<!--navigation-->
+	<nav class="navbar navbar-expand-md navbar-light sticky-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"><img class="its" src="./img/its.png"><img class="dds" src="./img/dds.png"></a>
+			<ul class="navbar-nav ml-auto">
+				<!--show account-->
+				<li class="nav-item">
+					<div class="dropleft">
+						<button class="dropdown-toggle nav-link" style="background: none;border: none" data-toggle="dropdown">
+							Account	
+						</button>
+						<div class="dropdown-menu" style="background: none;border:none">
+							<a class="dropdown-item" id="myAccount" href="chrome-extension://"></a>
+						</div>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./index.html">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./about.html" target="_blank">About</a>
+				</li>
+			</ul>
+		</div>	
+	</nav>
+
+	<!---->
+	<div class="smbox">
+		<div class="container-fluid">
+			<div class="page-header">
+				<h1>Rekam Medis</h1>
+			</div>
+			<br>
+		</div>
+		<div class="d-flex justify-content-center">
+			<button type="button" class="btn btn-md btn-primary" id="viewer-click">Lihat Riwayat</button>
+		</div>
+		<br>
+		<div class="d-flex justify-content-center">
+			<button type="button" class="btn btn-md btn-primary" id="provider-click">Petugas Adm.</button>	 
+		</div>
+	</div>
+
+
+
+
+	<script type="module" src="./app/contract.js"></script>
+	<script type="module">
+		//import contract instance
+		import contract from './app/contract.js'
+
+		document.getElementById('provider-click').style.display = 'none'
+
+		//metamask permission
+		window.addEventListener('load',async()=>{
+			if(window.ethereum){
+				window.web3 = new Web3(ethereum);
+				try{
+					await ethereum.enable();
+				}catch(error){}
+
+		//reload if accounts change something change
+		ethereum.on('accountsChanged',(err,res)=>{
+			location.reload();
+		})
+		//do the coding here
+		//show account
+		document.getElementById('myAccount').innerHTML = web3.eth.accounts[0];
+		//if this are not provider then disable the provider-click
+		const thisAddress = web3.eth.accounts[0]
+		//access the contract
+		const KontrakAksesProvider = web3.eth.contract(contract.akses_provider_abi).at(contract.akses_provider_address)
+		console.log(KontrakAksesProvider)
+
+		KontrakAksesProvider.provider(thisAddress,(err,res)=>{
+			if(!err){
+				if(res){
+					document.getElementById('provider-click').style.display = 'block';
+				}else{
+					document.getElementById('provider-click').style.display = 'none'
+				}
+			}
+		})
+
+		document.getElementById('provider-click').addEventListener('click',()=>{
+			window.location = 'provider.html'
+		})
+
+		document.getElementById('viewer-click').addEventListener('click',()=>{
+			window.location = 'viewer.html'
+		})
+
+		}})
+	</script>
+	<!--soruce: bootstrap@google-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width = device-width, initial-scale= 1">
+	<title>Rekam Medis</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<script type="module" src="./app/contract.js"></script>
+	<script type="module" src="./app/rekammedis.js"></script>
+	<script type="text/javascript" src="./js/index.min.js"></script>
+	<script type="text/javascript" src="./js/buffer.min.js"></script>
+	<style type="text/css">
+		h1{
+			text-align: center;
+		}
+		.kolom1{
+			border: 1px black solid;	
+			width: 200px;
+		}
+		.kolom2{
+			border: 1px black solid;
+			width: 1000px;
+		}
+		.teks{
+			width: 100%;
+			height: 200px;
+		}
+		input{
+			border: none;
+		}
+		.div1{
+			text-align: left;
+		}
+		textarea{
+			width:100%;
+		}
+		table{
+			background-color: white;
+		}
+	</style>
+</head>
+<body>
+	<!--navigation-->
+	<nav class="navbar navbar-expand-md navbar-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#"><img class="its" src="./img/its.png"><img class="dds" src="./img/dds.png"></a>
+			<ul class="navbar-nav ml-auto">
+				<!--show account-->
+				<li class="nav-item">
+					<div class="dropleft">
+						<button class="dropdown-toggle nav-link" style="background: none;border: none" data-toggle="dropdown">
+							Account	
+						</button>
+						<div class="dropdown-menu" style="background: none;border:none">
+							<a class="dropdown-item" id="myAccount"></a>
+						</div>
+					</div>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./index.html">Home</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="./about.html" target="_blank">About</a>
+				</li>
+			</ul>
+		</div>	
+	</nav>
+
+	<h1>Laman Rekam Medis</h1>
+	<h1>Data Personal</h1>
+	<div class="container-fluid padding">
+		<input style="height: 28px;width: 300px" type="text" id="address-pasien"><button id="cari-pasien"><img style="width: 20px;height: 20px" src="./img/find.png"></button>
+	</div>
+	<br>
+	<div class="container-fluid padding">
+		<table class="table table-bordered">
+			<tr>
+				<td class="kolom1">Nama</td>
+				<td class="kolom2"><input class="fullWidth" type="text" id="nama-pasien"></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Jenis Kelamin</td>
+				<td class="kolom2">
+					<span id="jeniskelamin-pasien"></span>
+					[Ubah: <input type="radio" id="jeniskelamin-laki" value="Laki-Laki" name="jeniskelamin" checked="true">Laki-Laki
+					<input type="radio" id="jeniskelamin-perempuan" value="Perempuan" name="jeniskelamin">Perempuan]
+				</td>
+			</tr>
+			<tr>
+				<td class="kolom1">Tempat Lahir</td>
+				<td class="kolom2">
+					<input type="text" id="tempatlahir-pasien">
+				</td>
+			</tr>
+			<tr>
+				<td class="kolom1">Tanggal Lahir</td>
+				<td class="kolom2"><input type="date" id="tanggallahir-pasien"></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Alamat Tinggal</td>
+				<td class="kolom2"><textarea class="fullWidth" id="alamattinggal-pasien"></textarea></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Pekerjaan</td>
+				<td class="kolom2"><input type="text" id="pekerjaan-pasien"></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Status Perkawinan</td>
+				<td class="kolom2">
+					<span id="statusperkawinan-pasien"></span>
+					[Ubah:  <input type="radio" name="status" id="statusperkawinan-menikah" value="Sudah Menikah">Menikah
+					<input type="radio" name="status" id="statusperkawinan-belum" value="Belum Menikah">Belum]
+				</td>
+			</tr>
+			<tr>
+				<td class="kolom1">Pendidikan</td>
+				<td class="kolom2"><input type="text" id="pendidikan-pasien"></td>
+			</tr>
+			<tr>
+				<td class="kolom1">No. Telepon</td>
+				<td class="kolom2"><input type="tel" id="telepon-pasien"></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Pas Foto</td>
+				<td class="kolom2"><input type="file" id="pasfoto-pasien"><br><img id="pasfoto-preview" width="120" height="180"></td>
+			</tr>
+		</table>
+		<input type="checkbox" id="status-ubah-data">Pengubahan Data
+
+		<h1>Rekam Medis</h1>
+		<table class="table table-bordered">
+			<tr>
+				<td class="kolom1">Tinggi Badan</td>
+				<td class="kolom2"><input type="number" id="tinggibadan-pasien"> cm</td>
+			</tr>
+			<tr>
+				<td class="kolom1">Berat Badan</td>
+				<td class="kolom2"><input type="number" id="beratbadan-pasien"> kg</td>
+			</tr>
+			<tr>
+				<td class="kolom1">Waktu</td>
+				<td class="kolom2"><span id="waktu-pasien"></span></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Penunjang</td>
+				<td class="kolom2">
+					<input type="file" id="file-penunjang">File: gambar<br>
+					<img width="200" height="200" id="penunjang-preview">
+				</td>
+			</tr>
+			<tr>
+				<td class="kolom1">Diagnosa</td>
+				<td class="kolom2"><input type="text" id="diagnosis-pasien">Sesuaikan dengan Kode</td>
+			</tr>
+			<tr>
+				<td class="kolom1">Tata Laksana</td>
+				<td class="kolom2"><textarea class="teks" id="tatalaksana-pasien"></textarea></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Tindakan</td>
+				<td class="kolom2"><textarea class="teks" id="tindakan-pasien"></textarea></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Pelayanan Lain</td>
+				<td class="kolom2"><textarea class="teks" id="pelayananlain-pasien"></textarea></td>
+			</tr>
+			<tr>
+				<td class="kolom1">Odontogram</td>
+				<td class="kolom2">
+					<input type="file" id="file-odontogram"><br>
+					<img width="200" height="200" id="odontogram-preview"><br>*preview
+				</td>
+			</tr>
+			<tr>
+				<td class="kolom1">Persetujan</td>
+				<td class="kolom2"><input type="text" id="persetujuan-pasien"></td>
+			</tr>
+		</table>
+		<br>
+	</div>
+	<div class="d-flex justify-content-center">
+		<button class="btn btn-md btn-primary" style="width: 50%"  id="submit-button">SUBMIT</button>
+	</div>
+	<br>
+	<!--soruce: bootstrap@google-->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
